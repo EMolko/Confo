@@ -1,1 +1,12 @@
 
+let
+    Source = (param) => 
+    let
+        Source = Excel.CurrentWorkbook(){[Name="Parameters"]}[Content],
+        SelectRows= Table.SelectRows(Source, each ([Name] = param)),
+        RemoveColumns = Table.RemoveColumns(SelectRows,{"Name"}),
+        Value = Text.From(List.First(RemoveColumns[Value]))
+    in
+        Value
+in
+    Source
